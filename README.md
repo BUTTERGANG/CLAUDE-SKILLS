@@ -5,8 +5,36 @@ Private repo for design principles and recursive learning — capturing lessons 
 ## Structure
 
 - `skills/` — behavioral, trigger-based procedures. Installed into `~/.claude/skills/<name>/SKILL.md` on any machine.
-- `memory/` — point-in-time facts (user preferences, project state, references). Lower ceremony, not invokable.
-- `queue/` — candidate lessons drafted after a session but not yet approved/promoted to `skills/` or `memory/`.
+- `memory/` — point-in-time facts (user preferences, project state, references). Lower ceremony, not invokable. Filed by type in `user/`, `feedback/`, `project/`, `reference/`; see [`memory/README.md`](memory/README.md) for the file format.
+- `queue/` — candidate lessons drafted after a session but not yet approved/promoted to `skills/` or `memory/`. Entries land in [`queue/candidates.md`](queue/candidates.md).
+
+## Installing on a machine
+
+Clone this repo once, then symlink each skill into `~/.claude/skills/` so `git pull` updates them everywhere:
+
+```sh
+REPO=~/.claude/CLAUDE-SKILLS
+
+# Clone if absent, pull if present. Never delete-and-reclone: a clone on this
+# machine may hold skill edits that were never committed (see
+# skills/destructive-action-confirmation).
+if [ -d "$REPO/.git" ]; then
+  git -C "$REPO" pull --ff-only
+else
+  git clone git@github.com:BUTTERGANG/CLAUDE-SKILLS.git "$REPO"
+fi
+
+mkdir -p ~/.claude/skills
+for d in "$REPO"/skills/*/; do
+  ln -sfn "$d" ~/.claude/skills/"$(basename "$d")"
+done
+```
+
+Because each installed skill is a symlink into the clone, **editing a skill in
+`~/.claude/skills/` edits the repo working tree** — commit it there rather than
+expecting the change to be local to one machine.
+
+Memory is per-project rather than global — copy or symlink the relevant entries into `~/.claude/projects/<project-dir>/memory/` and index them in that directory's `MEMORY.md`.
 
 ## Sorting rule: skills/ vs memory/
 
@@ -22,4 +50,4 @@ Rule of thumb: if the lesson reads as "when X happens, do Y, in this order" → 
 1. After a session with a real correction or a validated non-obvious approach, draft a candidate generalized rule.
 2. Append it to `queue/` rather than auto-committing to `skills/` or `memory/`.
 3. Review queued candidates in batches; promote, merge into an existing skill, or discard.
-4. Promoted skills get symlinked or copied into `~/.claude/skills/` on each machine.
+4. Promoted skills reach each machine via the symlink install above — `git pull` in the clone is the whole update step.
