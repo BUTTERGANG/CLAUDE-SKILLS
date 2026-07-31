@@ -15,7 +15,7 @@ version: 1.0.0
 
 ## Checklist
 
-1. **Use the pooled connection string (PgBouncer, port 6543 / `-pooler` host) for app runtime traffic**, especially serverless/edge functions — Neon's direct connection has a low connection limit that serverless invocation patterns exhaust quickly.
+1. **Use the pooled connection string for app runtime traffic**, especially serverless/edge functions — Neon's direct connection has a low connection limit that serverless invocation patterns exhaust quickly. Neon selects pooling by **hostname, not port**: add `-pooler` to the endpoint ID (`ep-cool-darkness-123456-pooler.us-east-2.aws.neon.tech`) and keep the standard Postgres port. There is no separate pooler port — `6543` is the Supabase/PgBouncer convention and does not apply here.
 2. **Use the direct (unpooled) connection string for migrations and long-lived transactions** — pooled connections in transaction mode don't support session-level features some migration tools rely on (prepared statements, session variables, advisory locks).
 3. **Confirm which branch the connection string targets before running a migration.** Neon branches are cheap to create — verify you're pointed at a dev/preview branch, not `main`/production, especially after copy-pasting a connection string from Replit Secrets.
 4. **For schema changes, follow additive-first migration discipline**: add nullable/defaulted columns before backfilling, avoid destructive `DROP`/`ALTER ... NOT NULL` in the same deploy as the code that depends on it — ties into `batch-job-safety`'s reversibility check.

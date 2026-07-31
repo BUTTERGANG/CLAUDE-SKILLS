@@ -5,8 +5,22 @@ Private repo for design principles and recursive learning — capturing lessons 
 ## Structure
 
 - `skills/` — behavioral, trigger-based procedures. Installed into `~/.claude/skills/<name>/SKILL.md` on any machine.
-- `memory/` — point-in-time facts (user preferences, project state, references). Lower ceremony, not invokable.
-- `queue/` — candidate lessons drafted after a session but not yet approved/promoted to `skills/` or `memory/`.
+- `memory/` — point-in-time facts (user preferences, project state, references). Lower ceremony, not invokable. Filed by type in `user/`, `feedback/`, `project/`, `reference/`; see [`memory/README.md`](memory/README.md) for the file format.
+- `queue/` — candidate lessons drafted after a session but not yet approved/promoted to `skills/` or `memory/`. Entries land in [`queue/candidates.md`](queue/candidates.md).
+
+## Installing on a machine
+
+Clone this repo once, then symlink each skill into `~/.claude/skills/` so `git pull` updates them everywhere:
+
+```sh
+git clone git@github.com:BUTTERGANG/CLAUDE-SKILLS.git ~/.claude/CLAUDE-SKILLS
+mkdir -p ~/.claude/skills
+for d in ~/.claude/CLAUDE-SKILLS/skills/*/; do
+  ln -sfn "$d" ~/.claude/skills/"$(basename "$d")"
+done
+```
+
+Memory is per-project rather than global — copy or symlink the relevant entries into `~/.claude/projects/<project-dir>/memory/` and index them in that directory's `MEMORY.md`.
 
 ## Sorting rule: skills/ vs memory/
 
