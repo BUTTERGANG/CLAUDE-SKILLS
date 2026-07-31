@@ -1,0 +1,28 @@
+# Skills kept in this repo but NOT symlinked into ~/.claude/skills by default.
+#
+# Removing a skill from the repo loses the writing; leaving it installed spends
+# context on guidance that duplicates default behavior. This list is the middle
+# option — the text stays, the skill just doesn't load. Delete a line to
+# reinstate, then re-run the install loop in README.md.
+#
+# One name per line. Blank lines and # comments ignored.
+
+# Restates behavior already exhibited by default: instruction-shaped text in
+# fetched content is not treated as authorization. No installed skill references
+# it, so nothing breaks by leaving it out.
+prompt-injection-awareness
+
+# Largely baseline: confirm before irreversible or shared-state actions. Earned
+# one real catch (an unchecked `rm -rf` before a clone) but retroactively.
+# NOTE: referenced by `neondb-connection-safety` and `systematic-debugging`,
+# which remain installed — their "see destructive-action-confirmation" pointers
+# no longer resolve to an invokable skill.
+destructive-action-confirmation
+
+# NOTE: this one is a hub. It is referenced by all four environment skills
+# (neondb-connection-safety, multi-service-secrets-setup,
+# replit-project-bootstrap, vite-replit-config), every one of which is still
+# installed and every one of which defers its credential-handling advice to it.
+# Skipping it leaves those four pointing at nothing. Reinstate this first if
+# credential guidance ever reads thin during a Replit port.
+secrets-hygiene
