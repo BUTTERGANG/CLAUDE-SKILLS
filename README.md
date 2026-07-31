@@ -13,12 +13,26 @@ Private repo for design principles and recursive learning — capturing lessons 
 Clone this repo once, then symlink each skill into `~/.claude/skills/` so `git pull` updates them everywhere:
 
 ```sh
-git clone git@github.com:BUTTERGANG/CLAUDE-SKILLS.git ~/.claude/CLAUDE-SKILLS
+REPO=~/.claude/CLAUDE-SKILLS
+
+# Clone if absent, pull if present. Never delete-and-reclone: a clone on this
+# machine may hold skill edits that were never committed (see
+# skills/destructive-action-confirmation).
+if [ -d "$REPO/.git" ]; then
+  git -C "$REPO" pull --ff-only
+else
+  git clone git@github.com:BUTTERGANG/CLAUDE-SKILLS.git "$REPO"
+fi
+
 mkdir -p ~/.claude/skills
-for d in ~/.claude/CLAUDE-SKILLS/skills/*/; do
+for d in "$REPO"/skills/*/; do
   ln -sfn "$d" ~/.claude/skills/"$(basename "$d")"
 done
 ```
+
+Because each installed skill is a symlink into the clone, **editing a skill in
+`~/.claude/skills/` edits the repo working tree** — commit it there rather than
+expecting the change to be local to one machine.
 
 Memory is per-project rather than global — copy or symlink the relevant entries into `~/.claude/projects/<project-dir>/memory/` and index them in that directory's `MEMORY.md`.
 
