@@ -6,7 +6,7 @@ version: 1.0.0
 
 # Verification Before Completion
 
-**Iron law: "DONE" IS A CLAIM ABOUT OBSERVED BEHAVIOUR, NOT ABOUT WORK PERFORMED.**
+**Iron law: "DONE" IS A CLAIM ABOUT OBSERVED BEHAVIOR, NOT ABOUT WORK PERFORMED.**
 
 ## Usage
 

@@ -1,0 +1,16 @@
+# OS / editor cruft — this repo is synced across machines, so keep it out
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Nothing in this repo should ever hold a credential value (see
+# skills/secrets-hygiene). These are here so an accidentally-created local
+# env file cannot be staged by a broad `git add`.
+.env
+.env.*
+!.env.example
+*.pem
+*.key

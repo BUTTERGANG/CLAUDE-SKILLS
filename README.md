@@ -50,4 +50,4 @@ Rule of thumb: if the lesson reads as "when X happens, do Y, in this order" → 
 1. After a session with a real correction or a validated non-obvious approach, draft a candidate generalized rule.
 2. Append it to `queue/` rather than auto-committing to `skills/` or `memory/`.
 3. Review queued candidates in batches; promote, merge into an existing skill, or discard.
-4. Promoted skills get symlinked or copied into `~/.claude/skills/` on each machine.
+4. Promoted skills reach each machine via the symlink install above — `git pull` in the clone is the whole update step.

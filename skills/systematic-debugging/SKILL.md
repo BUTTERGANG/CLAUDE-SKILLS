@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: Use when something is broken and the cause is not yet known. Enforces reproduce → isolate → hypothesise → test one variable at a time, instead of speculative shotgun fixes.
+description: Use when something is broken and the cause is not yet known. Enforces reproduce → isolate → hypothesize → test one variable at a time, instead of speculative shotgun fixes.
 version: 1.0.0
 ---
 
@@ -11,7 +11,7 @@ version: 1.0.0
 ## Usage
 
 - `/systematic-debugging`
-- Triggered when: a test fails for unclear reasons, behaviour differs between environments, an error message doesn't obviously map to a cause, or a first attempted fix didn't work.
+- Triggered when: a test fails for unclear reasons, behavior differs between environments, an error message doesn't obviously map to a cause, or a first attempted fix didn't work.
 
 ## Process
 

@@ -35,8 +35,9 @@ metadata:
 **How to apply:** <what to do differently because of it>           # feedback + project
 ```
 
-Link related entries with `[[slug]]`. A link to a file that doesn't exist yet is fine —
-it marks something worth writing, not an error.
+Link related entries with `[[slug]]`. A slug may name another memory entry **or a skill** —
+`[[replit-project-bootstrap]]` from a memory entry means "the skill by that name." A link to
+something that doesn't exist yet is fine; it marks something worth writing, not an error.
 
 ## Rules
 

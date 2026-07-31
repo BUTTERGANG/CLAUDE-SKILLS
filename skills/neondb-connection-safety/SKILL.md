@@ -1,7 +1,7 @@
 ---
 name: neondb-connection-safety
 description: Use when connecting an app to Neon Postgres or running schema migrations against it — pooled vs direct connection strings, branch-per-environment discipline, and migration safety.
-version: 1.0.0
+version: 1.0.1
 ---
 
 # NeonDB Connection Safety
