@@ -26,9 +26,22 @@ fi
 
 mkdir -p ~/.claude/skills
 for d in "$REPO"/skills/*/; do
-  ln -sfn "$d" ~/.claude/skills/"$(basename "$d")"
+  name=$(basename "$d")
+  # install-skip.txt lists skills kept in the repo but not loaded
+  if grep -qxF "$name" "$REPO/install-skip.txt" 2>/dev/null; then
+    rm -f ~/.claude/skills/"$name"   # removes the symlink, not the repo copy
+    continue
+  fi
+  ln -sfn "$d" ~/.claude/skills/"$name"
 done
 ```
+
+An idle skill costs only its name and description — roughly 50 tokens; the body
+loads only when it fires. So context is a weak reason to drop one. The reasons
+that hold up are that a skill is **wrong** (a trusted-and-wrong skill is worse
+than none) or that it **duplicates default behavior**. Anything in
+[`install-skip.txt`](install-skip.txt) failed the second test; the file records
+why, and what still references it.
 
 Because each installed skill is a symlink into the clone, **editing a skill in
 `~/.claude/skills/` edits the repo working tree** — commit it there rather than
